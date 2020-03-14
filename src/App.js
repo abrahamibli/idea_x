@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from './components/Login.js';
 import Main from './components/Main.js';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { ProtectedRoute } from './components/protected.route.js';
+
 
 class App extends Component {
   // Para autentificacion en un futuro
@@ -13,24 +14,16 @@ class App extends Component {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {}
     }
-    this.loginHandle = this.loginHandle.bind(this);
-  }
-
-  loginHandle = () => {
-    this.setState({
-      loggedInStatus: "LOGGED_IN",
-    });
   }
 
   render() {
     return (
-      <Router>
+      <Router >
         <div className="app">
           <Switch>
-            <Route exact path={'/'} render={() => (<Login loginHandle={this.loginHandle} />)} />
-            <Route exact path={'/main'} render={() => (
-              this.state.loggedInStatus === "LOGGED_IN" ? (<Main />) : (<Redirect to="/" />)
-            )} />
+            <Route exact path={"/"} component={Login} />
+            <ProtectedRoute exact path={"/main"} component={Main} />
+            <Route path={"*"} component={() => "404 Not Found"} />
           </Switch>
         </div>
       </Router>
