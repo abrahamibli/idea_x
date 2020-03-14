@@ -25,7 +25,7 @@ class Login extends Component {
                                 <input type="password" className="form-control"></input>
                             </div>
                             <div className="card-action">
-                                <Link to="/main" class="btn btn-primary">Iniciar Sesion</Link>
+                                <Link to="/main" class="btn btn-primary" onClick={this.props.loginHandle}> Iniciar Sesion </Link>
                             </div>
                         </div>
                     </div>

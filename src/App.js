@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Login from './components/Login.js';
 import Main from './components/Main.js';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 class App extends Component {
   // Para autentificacion en un futuro
@@ -13,6 +13,13 @@ class App extends Component {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {}
     }
+    this.loginHandle = this.loginHandle.bind(this);
+  }
+
+  loginHandle = () => {
+    this.setState({
+      loggedInStatus: "LOGGED_IN",
+    });
   }
 
   render() {
@@ -20,8 +27,10 @@ class App extends Component {
       <Router>
         <div className="app">
           <Switch>
-            <Route exact path={'/'} component={Login} />
-            <Route exact path={'/main'} component={Main} />
+            <Route exact path={'/'} render={() => (<Login loginHandle={this.loginHandle} />)} />
+            <Route exact path={'/main'} render={() => (
+              this.state.loggedInStatus === "LOGGED_IN" ? (<Main />) : (<Redirect to="/" />)
+            )} />
           </Switch>
         </div>
       </Router>
