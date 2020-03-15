@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import 'materialize-css/dist/css/materialize.min.css';
-import './Main.css';
+import Navigation from './Navigation.js';
+import Home from './Home.js';
+import '../App.css';
 
 class Main extends Component {
     constructor(props) {
@@ -8,9 +11,12 @@ class Main extends Component {
     }
 
     render() {
-        return <h1>
-            Pagina Principal
-        </h1>
+        return <Router>
+            <div className="Main">
+                <Navigation />
+                <Route exact path="/home" component={Home}/>
+            </div>
+        </Router> 
     }
 }
 

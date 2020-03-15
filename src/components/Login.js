@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import auth from '../auth.js';
 import 'materialize-css/dist/css/materialize.min.css';
-import './Login.css';
+import '../App.css';
 
 class Login extends Component {
     //Para autentificacion
